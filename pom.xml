@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>system</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.axis2/axis2 -->
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2</artifactId>
+            <version>1.7.8</version>
+            <type>pom</type>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.axis2/axis2-wsdl2code-maven-plugin -->
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+            <version>1.7.9</version>
+
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.ws.commons.axiom/axiom-api -->
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-api</artifactId>
+            <version>1.2.22</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.codehaus.woodstox/wstx-asl -->
+        <dependency>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>wstx-asl</artifactId>
+            <version>3.2.5</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ICGGatewayInterface</groupId>
+            <artifactId>ICGGatewayInterface</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/ICGGatewayInterface.jar</systemPath>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                <version>1.7.9</version>
+                <executions>
+                    <execution>
+                        <id>ccid-ws</id>
+                        <goals>
+
+                            <goal>wsdl2code</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFile>src/main/resources/wsdl/service.wsdl</wsdlFile>
+                            <databindingName>xmlbeans</databindingName>
+                            <packageName>default2</packageName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>target/generated-sources/axis2/wsdl2code/resources</directory>
+            </resource>
+            <resource>
+                <directory>target/generated-sources/xmlbeans/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
+
+
+</project>
